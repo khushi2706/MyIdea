@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href=
+  "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+              integrity=
+  "sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+           crossorigin="anonymous">
+             
+      <link rel="stylesheet" href=
+  "https://use.fontawesome.com/releases/v5.4.1/css/all.css"
+              integrity=
+  "sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz"
+               crossorigin="anonymous">
+<%- include('links.ejs') %> 
+<body>
+<%- include('header.ejs') %>
+
+<div class="container">
+
+  <h3 class="text-center m-3" > Add your idea!!</h3>
+    <form action="/myidea/add" class="m-3" method="post">
+      <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="basic-addon1">Title</span>
+            <input type="text" name="title" class="form-control"   aria-describedby="basic-addon1">
+          </div>
+          
+          <div class="input-group">
+            <span class="input-group-text">description</span>
+            <textarea class="form-control"name="desc"></textarea>
+          </div>
+          <div class="mt-3">
+            <input class="btn btn-primary" type="submit"></input>
+          </div>
+    </form>
+    <section>
+      <h1 class="text-center m-3" >Ideas📘</h1>
+      <div class="card-deck">
+        <% for( let i = 0; i < data.length; i++ ) { %>
+        <div class="card p-5">
+           <div class="card-block">
+                <h4 class="card-title"><%= data[i].title  %> </h4>
+                <p class="card-text">
+                  <%= data[i].desc  %>
+                </p>
+                <p class="card-text">
+                    <small class="text-muted">
+                      <%= moment(data[i].created).format('L');  %> 
+                    </small>
+                </p>
+                <a href="/myidea/delete/<%= data[i]._id %>" class="card-link">Delete</a>
+            </div>
+        </div>
+        <% } %>
+          
+        </div>
+
+
+
+
+    
+      
+       
+
+  
+    </section>
+</div>
+</body>
+</html>
